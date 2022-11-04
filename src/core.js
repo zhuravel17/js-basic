@@ -22,7 +22,7 @@ function fibonacci(n) {}
 /** Напишите функцию, которая принимает начальное значение и функцию операции
  * и возвращает возвращает функцию - выполняющую эту операцию.
  * Если функция операции (operatorFn) не задана - по умолчанию всегда
- * возвращает начальное значение (initialValue)
+ * возвращается начальное значение (initialValue)
  * @param initialValue
  * @param operatorFn - (storedValue, newValue) => {operation}
  * @example
