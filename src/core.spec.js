@@ -1,4 +1,4 @@
-var assert = require('assert'),
+const assert = require('assert'),
     core = require('./core');
 
 describe('Задания core js', () => {
@@ -14,7 +14,10 @@ describe('Задания core js', () => {
 
     describe('#even', () => {
         it('Возвращает корректный массив', () => {
-            assert.deepEqual(core.even(), [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]);
+            assert.deepStrictEqual(
+                core.even(),
+                [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+            );
         });
     });
 
@@ -59,6 +62,27 @@ describe('Задания core js', () => {
             assert.equal(core.fibonacci(2), 1);
             assert.equal(core.fibonacci(7), 13);
             assert.equal(core.fibonacci(10), 55);
+        });
+    });
+
+    describe('#getOperationFn', () => {
+        it('Возвращает функцию', () => {
+            const sumFn = core.getOperationFn(-1, (a, b) => a + b);
+            assert.ok(typeof sumFn === 'function');
+        });
+
+        it('Сохраняет внутреннее значение и применяет операцию', () => {
+            const multFn = core.getOperationFn(-1, (a, b) => a * b);
+            assert.strictEqual(multFn(-1), 1);
+            assert.strictEqual(multFn(4), 4);
+            assert.strictEqual(multFn(2), 8);
+        });
+
+        it('По умолчанию всегда возвращает начальное значение, если нет operatorFn', () => {
+            const staticFn = core.getOperationFn(-1);
+            assert.strictEqual(staticFn(-1), -1);
+            assert.strictEqual(staticFn(7), -1);
+            assert.strictEqual(staticFn(0), -1);
         });
     });
 });
