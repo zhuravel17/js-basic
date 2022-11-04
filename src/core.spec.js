@@ -85,4 +85,73 @@ describe('Задания core js', () => {
             assert.strictEqual(staticFn(0), -1);
         });
     });
+
+    describe('#sequence', () => {
+        it('Возвращает функцию с шагом 1 и началом 0, если не переданы значения', () => {
+            const generator = core.sequence();
+            assert.equal(generator(), 0);
+            assert.equal(generator(), 1);
+            assert.equal(generator(), 2);
+        });
+
+        it('Функция-генератор корректно генерирует значения начиная со start с шагом step', () => {
+            const generator1 = core.sequence(10, 3);
+            const generator2 = core.sequence(8, 2);
+            assert.equal(generator1(), 10);
+            assert.equal(generator1(), 13);
+            assert.equal(generator2(), 8);
+            assert.equal(generator1(), 16);
+            assert.equal(generator2(), 10);
+        });
+    });
+
+    describe('#deepEqual', () => {
+        it('Возвращает true если объекты равны', () => {
+            assert.equal(
+                core.deepEqual(
+                    {text: 'some text', count: 3, arr: [11, 22]},
+                    {text: 'some text', count: 3, arr: [11, 22]}
+                ),
+                true
+            );
+            assert.equal(
+                core.deepEqual(
+                    {obj: {count: 12}, value: null, flag: true},
+                    {obj: {count: 12}, value: null, flag: true}
+                ),
+                true
+            );
+            assert.equal(
+                core.deepEqual(
+                    {obj: {arr: ['a', 'b']}, value: undefined},
+                    {obj: {arr: ['a', 'b']}, value: undefined}
+                ),
+                true
+            );
+        });
+
+        it('Возвращает false если объекты не равны', () => {
+            assert.equal(
+                core.deepEqual(
+                    {text: 'some text', count: 3, arr: [11, 22]},
+                    {text: 'some text1', count: 4, arr: [11, 22]}
+                ),
+                false
+            );
+            assert.equal(
+                core.deepEqual(
+                    {obj: {count: 12}, value: null, flag: true},
+                    {obj: {count: 22}, value: null, flag: false}
+                ),
+                false
+            );
+            assert.equal(
+                core.deepEqual(
+                    {obj: {arr: ['a', 'b']}, value: undefined},
+                    {obj: {arr: ['a', 'b']}, value: null}
+                ),
+                false
+            );
+        });
+    });
 });
