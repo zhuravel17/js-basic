@@ -45,7 +45,7 @@ describe('Задания core js', () => {
             assert.equal(core.isBinary(2), true);
             assert.equal(core.isBinary(2048), true);
         });
-        
+
         it('Возвращает false при передаче не степени двойки', () => {
             assert.equal(core.isBinary(0), false);
             assert.equal(core.isBinary(12), false);
