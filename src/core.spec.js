@@ -152,6 +152,20 @@ describe('Задания core js', () => {
                 ),
                 false
             );
+            assert.equal(
+                core.deepEqual(
+                    {obj: {arr: [1, 2, 3]}, value: 'null', n: 0},
+                    {obj: {arr: [1, 2]}, value: 'null', n: 0}
+                ),
+                false
+            );
+            assert.equal(
+                core.deepEqual({obj: {arr: [1, 0]}}, {obj: {arr: [1, null]}}),
+                false
+            );
+            assert.strictEqual(core.deepEqual(0, 1), false);
+            assert.strictEqual(core.deepEqual(null, 0), false);
+            assert.strictEqual(core.deepEqual(null, undefined), false);
         });
     });
 });
