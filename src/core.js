@@ -7,9 +7,12 @@ function isInteger(n) {
 //Напишите функцию, которая возвращает массив четных чисел от 2 до 20 включительно
 function even() {
     let arr = [];
-    for (let i = 2; i < 21; i += 2) {
-        arr.push(i);
+    let i = 1;
+    do{
+        if(!(i % 2)) arr.push(i);
+        i++;
     }
+    while (arr[arr.length - 1] != 20 || arr.length === 0);
     return arr;
 }
 
@@ -109,37 +112,26 @@ function sequence(start, step) {
  * deepEqual({arr: [22, 33], text: 'text'}, {arr: [22, 3], text: 'text2'}) // false
  */
 function deepEqual(firstObject, secondObject) {
-    if (firstObject === secondObject) {
-        return true;
-    }
     if (typeof firstObject !== typeof secondObject) {
         return false;
     }
-    if (
-        !firstObject ||
-        !secondObject ||
-        typeof firstObject != 'object' ||
-        typeof secondObject != 'object'
-    ) {
-        return false;
+    if(firstObject === secondObject || (Number.isNaN(firstObject) && Number.isNaN(secondObject))){
+        return true;
     }
-    const arrNames1 = Object.getOwnPropertyNames(firstObject);
-    const arrNames2 = Object.getOwnPropertyNames(secondObject);
-    if (arrNames1.length !== arrNames2.length) {
-        return false;
-    }
-    for (let i = 0; i < arrNames1.length; ++i) {
-        if (
-            !(
-                typeof firstObject[arrNames1[i]] === 'object' &&
-                typeof secondObject[arrNames2[i]] === 'object' &&
-                firstObject[arrNames1[i]] === secondObject[arrNames2[i]]
-            )
-        ) {
+    if (typeof firstObject == "object" && typeof secondObject == "object" && firstObject != null && secondObject != null) {
+        if (Object.keys(firstObject || {}).length != Object.keys(secondObject).length) 
             return false;
+        for(var prop in firstObject){
+            if(secondObject.hasOwnProperty(prop)){
+                if(!deepEqual(firstObject[prop], secondObject[prop])){
+                    return false;
+                }
+            }
+            else return false;
         }
+        return true;
     }
-    return true;
+    return false;
 }
 
 module.exports = {
